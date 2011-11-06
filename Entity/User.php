@@ -31,12 +31,11 @@ class User {
         
         $this->initaliseSalt();
         
-        if (!md5(ltrim(10,$this->salt).$plaintextPassword.rtrim(10,$this->salt)) == $this->password) {
-            
-            return false;
+        if (md5(ltrim(7,$this->salt).$plaintextPassword.rtrim(5,$this->salt)) == $this->password) {
+            return true;
         } 
         
-        return true;
+        return false;
     }
     
     public function initaliseSalt () {
