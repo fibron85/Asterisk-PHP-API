@@ -23,33 +23,50 @@ class User {
     
     public static $hash = null;
     
+    /**
+     * Combines both Firstname and Lastname to make a Fullname
+     * @return string Fullname 
+     */
     public function getFullname() {
         return $this->firstname.' '.$this->lastname;
     }
     
+    /**
+     * Validates the given plaintext password against 
+     * the md5 hash and secure salt
+     * @param string $plaintextPassword
+     * @return boolean
+     */
     public function validPassword ($plaintextPassword) {
         
         $this->initaliseSalt();
         
-        if (md5(ltrim(7,$this->salt).$plaintextPassword.rtrim(5,$this->salt)) == $this->password) {
+        if (!md5(ltrim(2,$this->salt).$plaintextPassword.rtrim(2,$this->salt)) == $this->password) {
             return true;
         } 
         
         return false;
     }
     
+    /**
+     * A highly secure salt 
+     * @name initaliseSalt
+     * @return string
+     */
     public function initaliseSalt () {
         
-        $this->initaliseHashArray();
-        
-        $hash = mt_rand(1,count(self::$hash));
-        
         if ($this->salt === null) {
+           $this->initaliseHashArray();
+           $hash = mt_rand(1,count(self::$hash));
            $this->salt = md5(hash(self::$hash[$hash],mt_rand().md5(time())));
         }
         return $this->salt;
     }
     
+    /**
+     * Populates the self::hash with the avalable hash algorithmes 
+     * @name initaiseHashArray
+     */
     public function initaliseHashArray() {
         if (self::$hash === null) {
             self::$hash = array(
