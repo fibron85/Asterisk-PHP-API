@@ -15,7 +15,7 @@
 namespace SIPCloud\AsteriskAPI\Helpers;
 
 class RESTfulError extends RESTfulResponse{  
-    
+       
     public function __construct(array $error, $headers=array(), $status=500, $mimeType=null) {
         $error = array('error'=>$error);
         parent::__construct($error, $headers, $status, $mimeType);
