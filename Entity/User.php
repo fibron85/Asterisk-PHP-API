@@ -41,7 +41,7 @@ class User {
         
         $this->initaliseSalt();
         
-        if (!md5(ltrim(2,$this->salt).$plaintextPassword.rtrim(2,$this->salt)) == $this->password) {
+        if (!md5($plaintextPassword.$this->salt)== $this->password) {
             return true;
         } 
         
