@@ -54,13 +54,11 @@ class User {
      * @return string
      */
     public function initaliseSalt () {
-        
         if ($this->salt === null) {
            $this->initaliseHashArray();
            $hash = mt_rand(1,count(self::$hash));
            $this->salt = md5(hash(self::$hash[$hash],mt_rand().md5(time())));
         }
-        return $this->salt;
     }
     
     /**
